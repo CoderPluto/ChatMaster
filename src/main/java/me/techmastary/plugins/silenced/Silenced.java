@@ -29,6 +29,8 @@ public class Silenced extends JavaPlugin implements Listener {
 		if (!event.getPlayer().hasPermission("silenced.admin") && (Silence == true)) {
 			event.setCancelled(true);
 			event.getPlayer().sendMessage(ChatColor.GRAY + "Global chat is currently disabled.");
+		} else {
+			event.setCancelled(false);
 		}
 	}
 	
@@ -38,19 +40,21 @@ public class Silenced extends JavaPlugin implements Listener {
 		}
 	}
 
-	public boolean onCommand(CommandSender sender, Command cmd, String commandLabel, String[] args) {
-		if (commandLabel.equalsIgnoreCase("silence")) {
+	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
+		if (label.equalsIgnoreCase("silence")) {
 			if (sender.hasPermission("silenced.admin")) {
 				Silence = true;
-				sender.sendMessage("You silenced chat.");
-				Bukkit.broadcastMessage(ChatColor.GRAY + "" + sender + "disabled global chat.");
+				sender.sendMessage(ChatColor.GRAY + "You silenced global chat.");
+				Bukkit.broadcastMessage(ChatColor.GRAY + "" + sender.getName() + "disabled global chat.");
 			} else {
 				sender.sendMessage(ChatColor.WHITE + "Not cool enough to execute this command.");
 			}
 		}
-		if (commandLabel.equalsIgnoreCase("resume")) {
+		if (label.equalsIgnoreCase("resume")) {
 			if (sender.hasPermission("silenced.admin")) {
 				Silence = false;
+				sender.sendMessage(ChatColor.GRAY + "You have resumed global chat.");
+				Bukkit.broadcastMessage(ChatColor.GRAY + "" + sender.getName() + "resumed global chat.");
 			} else {
 				sender.sendMessage(ChatColor.WHITE + "Not cool enough to execute this command.");
 			}
