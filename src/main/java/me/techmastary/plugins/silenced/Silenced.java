@@ -45,7 +45,7 @@ public class Silenced extends JavaPlugin implements Listener {
 			if (sender.hasPermission("silenced.admin")) {
 				Silence = true;
 				sender.sendMessage(ChatColor.GRAY + "You silenced global chat.");
-				Bukkit.broadcastMessage(ChatColor.GRAY + "" + sender.getName() + "disabled global chat.");
+				Bukkit.broadcastMessage(ChatColor.GRAY + "" + sender.getName() + " disabled global chat.");
 			} else {
 				sender.sendMessage(ChatColor.WHITE + "Not cool enough to execute this command.");
 			}
@@ -54,7 +54,7 @@ public class Silenced extends JavaPlugin implements Listener {
 			if (sender.hasPermission("silenced.admin")) {
 				Silence = false;
 				sender.sendMessage(ChatColor.GRAY + "You have resumed global chat.");
-				Bukkit.broadcastMessage(ChatColor.GRAY + "" + sender.getName() + "resumed global chat.");
+				Bukkit.broadcastMessage(ChatColor.GRAY + "" + sender.getName() + " resumed global chat.");
 			} else {
 				sender.sendMessage(ChatColor.WHITE + "Not cool enough to execute this command.");
 			}
