@@ -7,6 +7,7 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.AsyncPlayerChatEvent;
+import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.plugin.java.JavaPlugin;
 
 public class Silenced extends JavaPlugin implements Listener {
@@ -23,13 +24,19 @@ public class Silenced extends JavaPlugin implements Listener {
 		System.out.println("Enabled Silenced.");
 	}
 
-		@EventHandler
-		public void OnPlayerChat(AsyncPlayerChatEvent event) {
-				if (!event.getPlayer().hasPermission("silenced.admin") && (Silence == true)) {
-					event.setCancelled(true);
-					event.getPlayer().sendMessage(ChatColor.GRAY + "The chat is currently disabled.");
-				}
-			}
+	@EventHandler
+	public void OnPlayerChat(AsyncPlayerChatEvent event) {
+		if (!event.getPlayer().hasPermission("silenced.admin") && (Silence == true)) {
+			event.setCancelled(true);
+			event.getPlayer().sendMessage(ChatColor.GRAY + "Global chat is currently disabled.");
+		}
+	}
+	
+	public void OnPlayerJoin(PlayerJoinEvent event) {
+		if (!event.getPlayer().hasPermission("silenced.admin") && (Silence == true)) {
+			event.getPlayer().sendMessage(ChatColor.GRAY + "Global chat is currently disabled.");
+		}
+	}
 
 	public boolean onCommand(CommandSender sender, Command cmd, String commandLabel, String[] args) {
 		if (commandLabel.equalsIgnoreCase("silence")) {
