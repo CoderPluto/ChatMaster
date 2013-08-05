@@ -7,3 +7,14 @@ name: Silenced
 startup: postworld
 url: http://TechMastary.net/
 version: '1.0'
+commands:
+   silence:
+      description: Disable chat
+      usage: /<command>
+      permission: silenced.admin
+      permission-message: No permission!
+   resume:
+      description: Allow chat
+      usage: /<command>
+      permission: silenced.admin
+      permission-message: No permission!
