@@ -12,7 +12,7 @@ import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.plugin.java.JavaPlugin;
 
 public class Silenced extends JavaPlugin implements Listener {
-	public static boolean Silence;
+	public static boolean Muted;
 
 	@Override
 	public void onDisable() {
@@ -22,22 +22,20 @@ public class Silenced extends JavaPlugin implements Listener {
 	@Override
 	public void onEnable() {
 		System.out.println("Enabled Silenced.");
-		Silence = false;
+		Muted = false;
 	}
 
 	@EventHandler(priority = EventPriority.HIGHEST)
 	public void OnPlayerChat(AsyncPlayerChatEvent event) {
-		if (!event.getPlayer().hasPermission("silenced.speak") && (Silence == true) || !event.getPlayer().hasPermission("silenced.admin")) {
+		if (!event.getPlayer().hasPermission("silenced.speak") && (Muted == true) || !event.getPlayer().hasPermission("silenced.admin")) {
 			event.setCancelled(true);
 			event.getPlayer().sendMessage(ChatColor.RED + "Global chat is currently disabled.");
-		} else {
-			event.setCancelled(false);
 		}
 	}
 
 	@EventHandler
 	public void OnPlayerJoin(PlayerJoinEvent event) {
-		if (Silence == true) {
+		if (Muted == true) {
 			event.getPlayer().sendMessage(ChatColor.GRAY + "Global chat is currently disabled.");
 			if (event.getPlayer().hasPermission("silenced.admin")) {
 				event.getPlayer().sendMessage(ChatColor.GRAY + "You have permission to talk.");
@@ -49,25 +47,35 @@ public class Silenced extends JavaPlugin implements Listener {
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
 		if (label.equalsIgnoreCase("silence")) {
 			if (sender.hasPermission("silenced.admin")) {
-				if (Silence == false) {
-					Silence = true;
+				if (Muted == false) {
+					Muted = true;
 					sender.sendMessage(ChatColor.GRAY + "You silenced global chat.");
 					Bukkit.broadcastMessage(ChatColor.GRAY + "" + sender.getName() + " disabled global chat.");
-				}
-				if (Silence == true) {
-					Silence = false;
+				} else {
+					Muted = false;
 					sender.sendMessage(ChatColor.GRAY + "You have resumed global chat.");
 					Bukkit.broadcastMessage(ChatColor.GRAY + "" + sender.getName() + " resumed global chat.");
 				}
 			}
 		}
 		if (label.equalsIgnoreCase("chatstatus")) {
-			if (sender.hasPermission("silenced.admin") && (Silence == true)) {
+			if (sender.hasPermission("silenced.admin") && (Muted == true)) {
 				sender.sendMessage(ChatColor.GRAY + "Global chat is currently" + ChatColor.RED + " DISABLED" + ChatColor.GRAY + ".");
 			}
-			if (sender.hasPermission("silenced.admin") && (Silence == false)) {
+			if (sender.hasPermission("silenced.admin") && (Muted == false)) {
 				sender.sendMessage(ChatColor.GRAY + "Global chat is currently" + ChatColor.RED + " ENABLED" + ChatColor.GRAY + ".");
 
+			}
+		}
+		if (label.equalsIgnoreCase("deafen")) {
+			if (sender.hasPermission("silenced.admin")) {
+				for (int x = 0; x < 120; x++) {
+					sender.sendMessage("");
+					if (x == 119) {
+						sender.sendMessage(ChatColor.GRAY + "You are now deafened and cannot use chat.");
+						//TODO: Make player unable to send/recieve chat
+					}
+				}
 			}
 		}
 		return true;
