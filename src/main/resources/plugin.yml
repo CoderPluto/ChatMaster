@@ -2,8 +2,8 @@ author: TechMastary
 database: false
 description: Is chat going out of hand? Disable the use of global chat!
 generator: http://dinnerbone.com/minecraft/tools/pluginator/
-main: me.techmastary.plugins.silenced.Silenced
-name: Silenced
+main: me.techmastary.plugins.chatmaster.ChatMaster
+name: ChastMaster
 startup: postworld
 url: http://TechMastary.net/
 version: '1.0'
