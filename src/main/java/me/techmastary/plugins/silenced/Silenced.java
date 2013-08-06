@@ -48,15 +48,17 @@ public class Silenced extends JavaPlugin implements Listener {
 
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
 		if (label.equalsIgnoreCase("silence")) {
-			if (sender.hasPermission("silenced.admin") && (Silence == false)) {
-				Silence = true;
-				sender.sendMessage(ChatColor.GRAY + "You silenced global chat.");
-				Bukkit.broadcastMessage(ChatColor.GRAY + "" + sender.getName() + " disabled global chat.");
-			}
-			if (sender.hasPermission("silenced.admin") && (Silence == true)) {
-				Silence = false;
-				sender.sendMessage(ChatColor.GRAY + "You have resumed global chat.");
-				Bukkit.broadcastMessage(ChatColor.GRAY + "" + sender.getName() + " resumed global chat.");
+			if (sender.hasPermission("silenced.admin")) {
+				if (Silence == false) {
+					Silence = true;
+					sender.sendMessage(ChatColor.GRAY + "You silenced global chat.");
+					Bukkit.broadcastMessage(ChatColor.GRAY + "" + sender.getName() + " disabled global chat.");
+				}
+				if (Silence == true) {
+					Silence = false;
+					sender.sendMessage(ChatColor.GRAY + "You have resumed global chat.");
+					Bukkit.broadcastMessage(ChatColor.GRAY + "" + sender.getName() + " resumed global chat.");
+				}
 			}
 		}
 		if (label.equalsIgnoreCase("chatstatus")) {
