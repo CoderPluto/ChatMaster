@@ -7,3 +7,17 @@ name: Silenced
 startup: postworld
 url: http://TechMastary.net/
 version: '1.0'
+commands:
+  silence:
+    description: Toggle the use of global chat.
+    permission: silenced.admin
+    usage: /[command]
+  chatstatus:
+    description: Check the status of global chat.
+    permission: silenced.admin
+    usage: /[command]
+permissions:
+  silenced.admin:
+    description: Have access to all features and be able to speak in global chat when disabled.
+  silenced.speak:
+    description: Be able to speak in global chat while disabled.
