@@ -1,4 +1,4 @@
-package me.techmastary.plugins.silenced;
+package net.techmastary.plugins.chatmaster;
 
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -11,7 +11,7 @@ import org.bukkit.event.player.AsyncPlayerChatEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.plugin.java.JavaPlugin;
 
-public class Silenced extends JavaPlugin implements Listener {
+public class ChatMaster extends JavaPlugin implements Listener {
 	public static boolean Muted;
 
 	@Override
@@ -27,7 +27,7 @@ public class Silenced extends JavaPlugin implements Listener {
 
 	@EventHandler(priority = EventPriority.HIGHEST)
 	public void OnPlayerChat(AsyncPlayerChatEvent event) {
-		if (!event.getPlayer().hasPermission("silenced.speak") && (Muted == true) || !event.getPlayer().hasPermission("silenced.admin")) {
+		if (!event.getPlayer().hasPermission("chat.speak") && (Muted == true) || !event.getPlayer().hasPermission("chat.admin")) {
 			event.setCancelled(true);
 			event.getPlayer().sendMessage(ChatColor.RED + "Global chat is currently disabled.");
 		}
@@ -46,7 +46,7 @@ public class Silenced extends JavaPlugin implements Listener {
 
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
 		if (label.equalsIgnoreCase("silence")) {
-			if (sender.hasPermission("silenced.admin")) {
+			if (sender.hasPermission("chat.admin")) {
 				if (Muted == false) {
 					Muted = true;
 					sender.sendMessage(ChatColor.GRAY + "You silenced global chat.");
@@ -59,10 +59,10 @@ public class Silenced extends JavaPlugin implements Listener {
 			}
 		}
 		if (label.equalsIgnoreCase("chatstatus")) {
-			if (sender.hasPermission("silenced.admin") && (Muted == true)) {
+			if (sender.hasPermission("chat.admin") && (Muted == true)) {
 				sender.sendMessage(ChatColor.GRAY + "Global chat is currently" + ChatColor.RED + " DISABLED" + ChatColor.GRAY + ".");
 			}
-			if (sender.hasPermission("silenced.admin") && (Muted == false)) {
+			if (sender.hasPermission("chat.admin") && (Muted == false)) {
 				sender.sendMessage(ChatColor.GRAY + "Global chat is currently" + ChatColor.RED + " ENABLED" + ChatColor.GRAY + ".");
 
 			}
